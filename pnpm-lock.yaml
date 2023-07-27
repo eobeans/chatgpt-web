@@ -5,6 +5,9 @@ settings:
   excludeLinksFromLockfile: false
 
 dependencies:
+  '@element-plus/icons-vue':
+    specifier: ^2.1.0
+    version: 2.1.0(vue@3.2.47)
   '@traptitech/markdown-it-katex':
     specifier: ^3.6.0
     version: 3.6.0

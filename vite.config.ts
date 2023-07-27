@@ -36,6 +36,11 @@ export default defineConfig((env) => {
       port: 1002,
       open: false,
       proxy: {
+        '/api/ebeans': {
+          target: 'https://www.fastmock.site/mock/5039c4361c39a7e3252c5b55971f1bd3/api',
+          changeOrigin: true, // 允许跨域
+          rewrite: path => path.replace('/api/ebeans', '/'),
+        },
         '/api': {
           target: viteEnv.VITE_APP_API_BASE_URL,
           changeOrigin: true, // 允许跨域

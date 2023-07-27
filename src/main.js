@@ -8,6 +8,8 @@ import { setupRouter } from './router'
 import ElementPlus from 'element-plus'
 import 'element-plus/dist/index.css'
 
+import * as elIcons from '@element-plus/icons-vue'
+
 import tool from './utils/tool'
 import config from "./config"
 
@@ -17,6 +19,10 @@ async function bootstrap() {
 
   app.use(ElementPlus)
 
+  for(let icon in elIcons){
+    app.component(`ElIcon${icon}`, elIcons[icon])
+  }
+  
   app.config.globalProperties.$TOOL = tool;
   app.config.globalProperties.$CONFIG = config;
 

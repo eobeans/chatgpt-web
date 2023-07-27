@@ -64,3 +64,13 @@ export function fetchVerify<T>(token: string) {
     data: { token },
   })
 }
+
+export function fetchTooken<T>(params: {
+  username: string
+  password: string
+  }) {
+  return post<T>({
+    url: '/eobeans/token',
+    data: { params },
+  })
+}

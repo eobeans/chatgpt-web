@@ -38,12 +38,10 @@ export function setupPageGuard(router) {
 			});
 			return false;
 		}
-		beforeEach(to, from)
 		next();
   })
 
 	router.afterEach((to, from) => {
-		afterEach(to, from)
 		NProgress.done()
 	});
 	

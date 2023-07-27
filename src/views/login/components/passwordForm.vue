@@ -22,8 +22,7 @@
 				</el-col>
 		</el-form-item>
 		<el-form-item>
-			<el-button type="primary" style="width: 100%;" :loading="islogin" round
-				v-optimize="{ event: 'click', fn: login, immediate: true, timeout: 1000 }">{{ $t('login.signIn') }}</el-button>
+			<el-button type="primary" style="width: 100%;" :loading="islogin" round @click="login">{{ $t('login.signIn') }}</el-button>
 		</el-form-item>
 		<div class="login-reg">
 			{{$t('login.noAccount')}} <router-link to="/user_register">{{$t('login.createAccount')}}</router-link>
@@ -32,6 +31,8 @@
 </template>
 
 <script>
+import { fetchTooken } from '@/api'
+
 	export default {
 		data() {
 			return {
@@ -68,76 +69,49 @@
 		},
 		methods: {
 			async login(){
-				const params = {
-					username: 'admin',
-					password: 'admin123',
-					client_id: 'web',
-					client_secret: '123456',
-					grant_type: 'password',
-					scope: 'server'
-				}
-				// 获取Token
-				const userToken = await this.$API.auth.accessToken.get(params)
-				this.$TOOL.cookie.set("TOKEN", userToken.access_token)
-				this.$TOOL.cookie.set("Admin-Token", userToken.access_token)
-				this.$TOOL.cookie.set("Admin-Expires-In", userToken.expires_in)
-				// 获取用户权限
-				const userInfo = await this.$API.system.user.info.get()
-				this.$TOOL.data.set("PERMISSIONS", userInfo.permissions)
-				this.$TOOL.data.set("ROLES", userInfo.roles)
-				this.$TOOL.data.set("USER", userInfo.user)
-				this.$TOOL.data.set("USER_INFO", {
-					role: userInfo.roles,
-					userId: userInfo.user.userId,
-					userName: userInfo.user.userName
-				})
-				// 原代码
-				let validate = await this.$refs.loginForm.validate().catch(()=>{})
-				if(!validate){ return false }
-
-				this.islogin = true
-				// let data = {
-				// 	username: this.form.user,
-				// 	password: this.$TOOL.crypto.MD5(this.form.password)
+				// const params = {
+				// 	username: 'admin',
+				// 	password: 'admin123',
+				// 	client_id: 'web',
+				// 	client_secret: '123456',
+				// 	grant_type: 'password',
+				// 	scope: 'server'
 				// }
-				// //获取token
-				// let user = await this.$API.auth.token.post(data)
-				// console.log('user.data.uerInfo  ', user.data.userInfo)
+				// // 获取Token
+				// const userToken = await this.$API.auth.accessToken.get(params)
+				// this.$TOOL.cookie.set("TOKEN", userToken.access_token)
+				// this.$TOOL.cookie.set("Admin-Token", userToken.access_token)
+				// this.$TOOL.cookie.set("Admin-Expires-In", userToken.expires_in)
+				// // 获取用户权限
+				// const userInfo = await this.$API.system.user.info.get()
+				// this.$TOOL.data.set("PERMISSIONS", userInfo.permissions)
+				// this.$TOOL.data.set("ROLES", userInfo.roles)
+				// this.$TOOL.data.set("USER", userInfo.user)
+				// this.$TOOL.data.set("USER_INFO", {
+				// 	role: userInfo.roles,
+				// 	userId: userInfo.user.userId,
+				// 	userName: userInfo.user.userName
+				// })
+
+				let data = {
+					username: this.form.user,
+					password: this.$TOOL.crypto.MD5(this.form.password)
+				}
+				//获取token
+				// let user = await fetchTooken(data)
 				// if(user.code == 200){
-				// 	// this.$TOOL.cookie.set("TOKEN", user.data.token, {
-				// 	// 	expires: this.form.autologin? 24*60*60 : 0
-				// 	// })
+				// 	this.$TOOL.cookie.set("TOKEN", user.data.token, {
+				// 		expires: this.form.autologin? 24*60*60 : 0
+				// 	})
 				// 	this.$TOOL.data.set("USER_INFO", user.data.userInfo)
 				// }else{
 				// 	this.islogin = false
 				// 	this.$message.warning(user.message)
 				// 	return false
 				// }
-				//获取菜单
-				// let menu = null
-				// if(this.form.user == 'admin'){
-				// 	menu = await this.$API.system.menu.myMenus.get()
-				// }else{
-				// 	menu = await this.$API.demo.menu.get()
-				// }
-				// if(menu.code == 200){
-				// 	if(menu.data.menu.length==0){
-				// 		this.islogin = false
-				// 		this.$alert("当前用户无任何菜单权限，请联系系统管理员", "无权限访问", {
-				// 			type: 'error',
-				// 			center: true
-				// 		})
-				// 		return false
-				// 	}
-				// 	this.$TOOL.data.set("MENU", menu.data.menu)
-				// 	this.$TOOL.data.set("PERMISSIONS", userInfo.permissions.concat(menu.data.permissions))
-				// 	this.$TOOL.data.set("DASHBOARDGRID", menu.data.dashboardGrid)
-				// }else{
-				// 	this.islogin = false
-				// 	this.$message.warning(menu.message)
-				// 	return false
-				// }
-
+				this.$TOOL.cookie.set("TOKEN", 'testToken', {
+					expires: this.form.autologin? 24*60*60 : 0
+				})
 				this.$router.replace({
 					path: '/'
 				})
