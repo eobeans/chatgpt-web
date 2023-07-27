@@ -1,8 +1,8 @@
 <template>
 	<common-page title="重置密码">
 		<el-steps :active="stepActive" simple finish-status="success">
-		    <el-step title="填写新密码" />
-		    <el-step title="完成重置" />
+			<el-step title="填写新密码" />
+			<el-step title="完成重置" />
 		</el-steps>
 		<el-form v-if="stepActive==0" ref="form" :model="form" :rules="rules" :label-width="120">
 			<el-form-item label="登录账号" prop="user">
@@ -39,7 +39,7 @@
 </template>
 
 <script>
-	import commonPage from './components/commonPage'
+	import commonPage from './components/commonPage.vue'
 
 	export default {
 		components: {

@@ -87,7 +87,7 @@
 	.login-oauth {display: flex;justify-content:space-around;}
 	.login-form .el-divider {margin-top:40px;}
 
-	.login-form {}
+	/* .login-form {} */
 	.login-form:deep(.el-tabs) .el-tabs__header {margin-bottom: 25px;}
 	.login-form:deep(.el-tabs) .el-tabs__header .el-tabs__item {font-size: 14px;}
 
