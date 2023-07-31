@@ -9,14 +9,8 @@
 				<el-input v-model="form.user" placeholder="请输入登录账号"></el-input>
 				<div class="el-form-item-msg">请输入注册时填写的登录账号</div>
 			</el-form-item>
-			<el-form-item label="手机号码" prop="phone">
-				<el-input v-model="form.phone" placeholder="请输入手机号码"></el-input>
-			</el-form-item>
-			<el-form-item label="短信验证码" prop="yzm">
-				<div class="yzm">
-					<el-input v-model="form.yzm" placeholder="请输入6位短信验证码"></el-input>
-					<el-button @click="getYzm" :disabled="disabled">获取验证码<span v-if="disabled"> ({{time}})</span></el-button>
-				</div>
+			<el-form-item label="邀请码" prop="code">
+				<el-input v-model="form.code" placeholder="请输入邀请码"></el-input>
 			</el-form-item>
 			<el-form-item label="新密码" prop="newpw">
 				<el-input v-model="form.newpw" show-password placeholder="请输入新密码"></el-input>
@@ -50,8 +44,7 @@
 				stepActive: 0,
 				form: {
 					user: "",
-					phone: "",
-					yzm: "",
+					code: "",
 					newpw: "",
 					newpw2: ""
 				},
@@ -59,11 +52,8 @@
 					user: [
 						{ required: true, message: '请输入登录账号'}
 					],
-					phone: [
-						{ required: true, message: '请输入手机号'}
-					],
-					yzm: [
-						{ required: true, message: '请输入短信验证码'}
+					code: [
+						{ required: true, message: '请输入邀请码'}
 					],
 					newpw: [
 						{ required: true, message: '请输入新的密码'}
@@ -87,22 +77,6 @@
 
 		},
 		methods: {
-			async getYzm(){
-				var validate = await this.$refs.form.validateField("phone").catch(()=>{})
-				if(!validate){ return false }
-
-				this.$message.success("已发送短信至手机号码")
-				this.disabled = true
-				this.time = 60
-				var t = setInterval(() => {
-					this.time -= 1
-					if(this.time < 1){
-						clearInterval(t)
-						this.disabled = false
-						this.time = 0
-					}
-				},1000)
-			},
 			async save(){
 				var validate = await this.$refs.form.validate().catch(()=>{})
 				if(!validate){ return false }

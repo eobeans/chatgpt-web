@@ -2,10 +2,13 @@
 	<div class="login_bg">
 		<div class="login_adv" style="background-image: url(img/auth_banner.jpg);">
 			<div class="login_adv__title">
-				<h2>SCUI</h2>
+				<h2>Chat GPT</h2>
 				<h4>{{ $t('login.slogan') }}</h4>
 				<p>{{ $t('login.describe') }}</p>
 				<div>
+					<span>
+						<el-icon><el-chat-round /></el-icon>
+					</span>
 					<span>
 						<el-icon class="add"><el-icon-plus /></el-icon>
 					</span>

@@ -2,8 +2,9 @@
 	<common-page title="注册新账号">
 		<el-steps :active="stepActive" simple finish-status="success">
 			<el-step title="注册" />
+			<el-step title="完成注册" />
 		</el-steps>
-		<el-form ref="stepForm_0" :model="form" :rules="rules" :label-width="120" style="margin-top: 20px;">
+		<el-form v-if="stepActive == 0" ref="stepForm_0" :model="form" :rules="rules" :label-width="120" style="margin-top: 20px;">
 			<el-form-item label="登录账号" prop="user">
 				<el-input v-model="form.user" placeholder="请输入登录账号"></el-input>
 				<div class="el-form-item-msg">登录账号将作为登录时的唯一凭证</div>
@@ -20,17 +21,17 @@
 				<el-input v-model="form.code" placeholder="请输入邀请码"></el-input>
 			</el-form-item>
 		</el-form>
-		<div v-if="successRegister">
+		<el-form v-if="stepActive == 0" style="text-align: center; margin-bottom: 15px;">
+			<el-button type="primary" plain @click="goLogin">返回</el-button>
+			<el-button type="primary" @click="save">提交</el-button>
+		</el-form>
+		<div v-if="stepActive == 1">
 			<el-result icon="success" title="注册成功" sub-title="请使用账号登录系统">
 				<template #extra>
 					<el-button type="primary" @click="goLogin">前去登录</el-button>
 				</template>
 			</el-result>
 		</div>
-		<el-form v-if="!successRegister" style="text-align: center; margin-bottom: 15px;">
-			<el-button type="primary" plain @click="goLogin">返回</el-button>
-			<el-button type="primary" @click="save">提交</el-button>
-		</el-form>
 	</common-page>
 </template>
 
@@ -84,6 +85,7 @@
 				const formName = `stepForm_${this.stepActive}`
 				this.$refs[formName].validate((valid) => {
 					if (valid) {
+						this.stepActive += 1
 						this.successRegister = true
 					}else{
 						return false

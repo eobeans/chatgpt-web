@@ -1,7 +1,7 @@
 export default {
   login: {
 		slogan: '高性能 / 精致 / 优雅',
-		describe: '基于Vue3 + Element-Plus 的中后台前端解决方案。',
+		describe: '适合中国人使用的GPT使用方案',
 		signInTitle: '用户登录',
 		accountLogin: '账号登录',
 		mobileLogin: '手机号登录',
