@@ -5,7 +5,6 @@ import tool from '@/utils/tool';
 import systemRouter from './systemRouter';
 
 const routes = systemRouter
-let routes_404_r = ()=>{}
 
 //设置标题
 document.title = config.APP_NAME
@@ -19,10 +18,6 @@ export function setupPageGuard(router) {
 		let token = tool.cookie.get("TOKEN");
 
 		if(to.path === "/login"){
-			//删除路由(替换当前layout路由)
-			router.addRoute(routes[0])
-			//删除路由(404)
-			routes_404_r()
 			next();
 			return false;
 		}
