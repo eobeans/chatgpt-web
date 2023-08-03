@@ -86,31 +86,35 @@ import { fetchTooken } from '@/api'
 				// 	userId: userInfo.user.userId,
 				// 	userName: userInfo.user.userName
 				// })
-
-				let data = {
-					username: this.form.user,
-					password: this.$TOOL.crypto.MD5(this.form.password)
+				if (this.form.user == 'admin' && this.form.password == 'admin123') {
+					let data = {
+						username: this.form.user,
+						password: this.$TOOL.crypto.MD5(this.form.password)
+					}
+					//获取token
+					// let user = await fetchTooken(data)
+					// if(user.code == 200){
+					// 	this.$TOOL.cookie.set("TOKEN", user.data.token, {
+					// 		expires: this.form.autologin? 24*60*60 : 0
+					// 	})
+					// 	this.$TOOL.data.set("USER_INFO", user.data.userInfo)
+					// }else{
+					// 	this.islogin = false
+					// 	this.$message.warning(user.message)
+					// 	return false
+					// }
+					this.$TOOL.cookie.set("TOKEN", 'testToken', {
+						expires: this.form.autologin? 24*60*60 : 0
+					})
+					this.$router.replace({
+						path: '/'
+					})
+					this.$message.success("Login Success 登录成功")
+					this.islogin = false
+				} else {
+					this.islogin = false
+					this.$message.warning('账号密码错误')
 				}
-				//获取token
-				// let user = await fetchTooken(data)
-				// if(user.code == 200){
-				// 	this.$TOOL.cookie.set("TOKEN", user.data.token, {
-				// 		expires: this.form.autologin? 24*60*60 : 0
-				// 	})
-				// 	this.$TOOL.data.set("USER_INFO", user.data.userInfo)
-				// }else{
-				// 	this.islogin = false
-				// 	this.$message.warning(user.message)
-				// 	return false
-				// }
-				this.$TOOL.cookie.set("TOKEN", 'testToken', {
-					expires: this.form.autologin? 24*60*60 : 0
-				})
-				this.$router.replace({
-					path: '/'
-				})
-				this.$message.success("Login Success 登录成功")
-				this.islogin = false
 			},
 		}
 	}
