@@ -26,7 +26,7 @@
 			<div class="login-form">
 				<div class="login-header">
 					<div class="logo">
-						<img :alt="$CONFIG.APP_NAME" src="img/logo.png">
+						<!-- <img :alt="$CONFIG.APP_NAME" src="img/logo.png"> -->
 						<label>{{$CONFIG.APP_NAME}}</label>
 					</div>
 				</div>
